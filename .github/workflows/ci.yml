@@ -1,0 +1,21 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm install
+      - name: Smoke test scorer
+        run: |
+          echo "<h1>Test Post</h1><p>This is a test post about marketing automation tools in 2026.</p>" > /tmp/test.html
+          node src/score.js /tmp/test.html
+      - name: Smoke test schema
+        run: |
+          node src/schema.js --frontmatter='{"title":"Test","slug":"test","domain":"https://example.com","datePublished":"2026-01-01","author":{"name":"Jane"}}'

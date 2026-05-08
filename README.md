@@ -1,11 +1,17 @@
+[![CI](https://github.com/philip95macdonald-cmd/content-seo-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/philip95macdonald-cmd/content-seo-engine/actions)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Node](https://img.shields.io/badge/node-%3E%3D20-green)
+
 # content-seo-engine
 
-Three tools for data-driven content marketing — run them independently or chain them:
+Built this because most content teams either rely on gut feel or expensive tools like Clearscope. This replaces both: Claude generates data-driven briefs, a deterministic scorer grades the output, and a schema generator outputs production-ready JSON-LD.
+
+Three tools — run them independently or chain them:
 
 ```
-1. brief.js   — Claude generates a full content brief from topic + keyword + audience
-2. score.js   — scores a finished post on 5 SEO/E-E-A-T/GEO dimensions (100 pts)
-3. schema.js  — generates JSON-LD (Article + BreadcrumbList + optional FAQPage)
+1. brief.js   → Claude generates a full content brief from topic + keyword + audience
+2. score.js   → grades a finished post across 5 dimensions (100 pts total)
+3. schema.js  → outputs Article + BreadcrumbList + FAQPage JSON-LD
 ```
 
 ## Quick start
@@ -20,46 +26,44 @@ node src/brief.js \
   --audience="Marketing Manager" \
   --cluster="Marketing Ops"
 
-# Score a post (HTML file)
+# Score a post
 node src/score.js path/to/post.html \
   --frontmatter='{"title":"…","description":"…","keyword":"marketing automation","author":{"name":"Jane"}}'
 
-# Generate JSON-LD schema
+# Generate JSON-LD
 node src/schema.js \
   --frontmatter='{"title":"…","slug":"post-slug","domain":"https://your-site.com","datePublished":"2026-01-15","author":{"name":"Jane"}}'
 ```
 
-## Scoring breakdown
+## Scoring breakdown (100 pts)
 
-| Category | Points | What's measured |
+| Category | Pts | What's measured |
 |---|---|---|
-| Content quality | 25 | Word count, heading structure, external links, specificity |
+| Content quality | 25 | Word count, heading structure, external links, date specificity |
 | SEO | 25 | Title/meta length, internal links, keyword placement |
 | E-E-A-T | 20 | Author byline + credentials, freshness, sourced links |
-| Technical | 15 | Image alts, lazy loading, paragraph length, code blocks |
-| AI citation readiness | 15 | TL;DR presence, Q&A headings, FAQPage schema |
+| Technical | 15 | Image alts, lazy loading, paragraph length |
+| AI citation readiness | 15 | TL;DR, Q&A headings, FAQPage schema |
 
-A post scoring ≥ 80 is ready to publish. 60–79 needs one or two targeted fixes (see findings output). Below 60 — rework before publishing.
+**≥ 80** → ready to publish. **60–79** → one or two targeted fixes needed. **< 60** → rework first.
 
 ## Content brief output
 
-The brief includes:
-- 3 title variants (all ≤ 60 chars, all containing the keyword)
+- 3 title variants (all ≤ 60 chars, keyword included)
 - Meta description (120–160 chars)
-- Target word count
 - Full H2/H3 outline
-- Citation capsule (TL;DR-ready 2-paragraph answer)
-- 5–10 recommended sources
+- Citation capsule — TL;DR-ready 2-paragraph answer for AI citation
+- 5–10 recommended sources (Tier 1 preferred)
 - Internal + external linking zones
-- Image/chart suggestions
 - FAQ suggestions (feeds directly into FAQPage schema)
-- Distribution plan (LinkedIn, email, Reddit angles)
+- Distribution angles: LinkedIn, email, Reddit
 
-## JSON-LD schema
+## Setup
 
-Generates: `Article` + `BreadcrumbList` + (if `faqs` in frontmatter) `FAQPage`.
-
-Paste the output into your page's `<head>` or CMS custom fields.
+```bash
+cp .env.example .env
+# Add ANTHROPIC_API_KEY
+```
 
 ## License
 
