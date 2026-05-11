@@ -4,9 +4,7 @@
 
 # content-seo-engine
 
-Built this because most content teams either rely on gut feel or expensive tools like Clearscope. This replaces both: Claude generates data-driven briefs, a deterministic scorer grades the output, and a schema generator outputs production-ready JSON-LD.
-
-Three tools — run them independently or chain them:
+Three tools for the full content workflow — run them independently or chain them:
 
 ```
 1. brief.js   → Claude generates a full content brief from topic + keyword + audience
