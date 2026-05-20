@@ -1,4 +1,4 @@
-[![CI](https://github.com/philip95macdonald-cmd/content-seo-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/philip95macdonald-cmd/content-seo-engine/actions)
+[![CI](https://github.com/martechbuilder/content-seo-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/martechbuilder/content-seo-engine/actions)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Node](https://img.shields.io/badge/node-%3E%3D20-green)
 
